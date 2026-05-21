@@ -42,4 +42,8 @@ public class TurnoRepository {
                         && t.getProfesional().getId().equals(profesionalId)
                         && t.getDate().equals(date));
     }
+
+    public Turno findById(Long id) {
+        return storage.get(id);
+    }
 }
