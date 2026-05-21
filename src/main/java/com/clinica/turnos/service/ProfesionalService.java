@@ -26,7 +26,7 @@ public class ProfesionalService {
         return profesional;
     }
 
-    public List<Profesional> findByEspecialidad(String especialidad) {
-        return profesionalRepository.findByEspecialidad(especialidad);
+    public List<Profesional> findBySpeciality(String especialidad) {
+        return profesionalRepository.findBySpeciality(especialidad);
     }
 }
