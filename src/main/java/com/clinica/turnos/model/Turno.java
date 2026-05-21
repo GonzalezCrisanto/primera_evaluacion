@@ -1,5 +1,7 @@
 package com.clinica.turnos.model;
 
+import com.clinica.turnos.dto.DTOPaciente;
+import com.clinica.turnos.dto.DTOProfesional;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -10,7 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class Turno {
     private Long id;
-    private Paciente paciente;
-    private Profesional profesional;
+    private DTOPaciente dtoPaciente;
+    private DTOProfesional dtoProfesional;
     private LocalDate fecha;
 }
