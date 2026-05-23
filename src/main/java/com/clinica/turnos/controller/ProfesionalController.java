@@ -2,6 +2,7 @@ package com.clinica.turnos.controller;
 
 import com.clinica.turnos.model.Profesional;
 import com.clinica.turnos.service.ProfesionalService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class ProfesionalController {
     private ProfesionalService profesionalService;
 
     @PostMapping
-    public ResponseEntity<Profesional> create(@RequestBody Profesional profesional) {
+    public ResponseEntity<Profesional> create(@Valid @RequestBody Profesional profesional) {
         return ResponseEntity.status(HttpStatus.CREATED).body(profesionalService.create(profesional));
     }
 

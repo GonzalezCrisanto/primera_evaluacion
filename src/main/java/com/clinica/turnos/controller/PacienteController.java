@@ -2,6 +2,7 @@ package com.clinica.turnos.controller;
 
 import com.clinica.turnos.model.Paciente;
 import com.clinica.turnos.service.PacienteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class PacienteController {
     private PacienteService pacienteService;
 
     @PostMapping
-    public ResponseEntity<Paciente> create(@RequestBody Paciente paciente) {
+    public ResponseEntity<Paciente> create(@Valid @RequestBody Paciente paciente) {
         return ResponseEntity.status(HttpStatus.CREATED).body(pacienteService.create(paciente));
     }
 

@@ -2,6 +2,7 @@ package com.clinica.turnos.controller;
 
 import com.clinica.turnos.model.Turno;
 import com.clinica.turnos.service.TurnoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -19,12 +20,11 @@ public class TurnoController {
     private TurnoService turnoService;
 
     @PostMapping
-    public ResponseEntity<Turno> register(
-            @RequestParam Long pacienteId,
-            @RequestParam Long profesionalId,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+    public ResponseEntity<Turno> register(@Valid @RequestBody Turno turno) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(turnoService.register(pacienteId, profesionalId, date));
+                .body(turnoService.register(turno.getPaciente().getId(),
+                        turno.getProfesional().getId(),
+                        turno.getDate()));
     }
 
     @GetMapping
