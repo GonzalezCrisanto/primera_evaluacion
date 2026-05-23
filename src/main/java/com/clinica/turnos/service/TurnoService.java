@@ -73,4 +73,11 @@ public class TurnoService {
         }
         turnoRepository.deleteById(id);
     }
+
+    public List<TurnoResponseDTO> findByDateRange(LocalDate from, LocalDate to) {
+        return turnoRepository.findByDateRange(from, to)
+                .stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
 }

@@ -36,6 +36,13 @@ public class TurnoController {
         return ResponseEntity.ok(turnoService.findByDate(date));
     }
 
+    @GetMapping("/filter")
+    public ResponseEntity<List<TurnoResponseDTO>> findByDateRange(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to) {
+        return ResponseEntity.ok(turnoService.findByDateRange(from, to));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         turnoService.delete(id);

@@ -46,4 +46,10 @@ public class TurnoRepository {
     public Turno findById(Long id) {
         return storage.get(id);
     }
+
+    public List<Turno> findByDateRange(LocalDate from, LocalDate to) {
+        return storage.values().stream()
+                .filter(t -> !t.getDate().isBefore(from) && !t.getDate().isAfter(to))
+                .collect(Collectors.toList());
+    }
 }
