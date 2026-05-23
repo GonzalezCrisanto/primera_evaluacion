@@ -10,40 +10,40 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 @Service
 public class ProfesionalService {
-
     @Autowired
     private ProfesionalRepository profesionalRepository;
 
-    private DTOProfesional toDTO(Profesional profesional) {
-        return new DTOProfesional(profesional.getCompleteName(), profesional.getSpecialty());
-    }
+    private static final Logger logger = LogManager.getLogger(ProfesionalService.class);
 
     public DTOProfesional create(Profesional profesional) {
+        logger.info("Creating professional: {}", profesional.getCompleteName());
         return toDTO(profesionalRepository.save(profesional));
     }
 
-    public Profesional findById(Long id) {
+    public Profesional findEntityById(Long id) {
+        logger.info("Searching professional with id: {}", id);
         Profesional profesional = profesionalRepository.findById(id);
         if (profesional == null) {
+            logger.error("Professional with id {} not found", id);
             throw new RecursoNoEncontradoException("Professional with id " + id + " not found");
         }
         return profesional;
     }
 
     public List<DTOProfesional> findBySpecialty(String specialty) {
+        logger.info("Listing professionals with specialty: {}", specialty);
         return profesionalRepository.findBySpeciality(specialty)
                 .stream()
                 .map(this::toDTO)
                 .collect(Collectors.toList());
     }
 
-    public Profesional findEntityById(Long id) {
-        Profesional profesional = profesionalRepository.findById(id);
-        if (profesional == null) {
-            throw new RecursoNoEncontradoException("Professional with id " + id + " not found");
-        }
-        return profesional;
+    private DTOProfesional toDTO(Profesional profesional) {
+        return new DTOProfesional(profesional.getCompleteName(), profesional.getSpecialty());
     }
 }
