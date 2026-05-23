@@ -1,5 +1,6 @@
 package com.clinica.turnos.controller;
 
+import com.clinica.turnos.dto.DTOPaciente;
 import com.clinica.turnos.model.Paciente;
 import com.clinica.turnos.service.PacienteService;
 import jakarta.validation.Valid;
@@ -18,17 +19,17 @@ public class PacienteController {
     private PacienteService pacienteService;
 
     @PostMapping
-    public ResponseEntity<Paciente> create(@Valid @RequestBody Paciente paciente) {
+    public ResponseEntity<DTOPaciente> create(@Valid @RequestBody Paciente paciente) {
         return ResponseEntity.status(HttpStatus.CREATED).body(pacienteService.create(paciente));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Paciente> findById(@PathVariable Long id) {
+    public ResponseEntity<DTOPaciente> findById(@PathVariable Long id) {
         return ResponseEntity.ok(pacienteService.findById(id));
     }
 
     @GetMapping
-    public ResponseEntity<List<Paciente>> findAll() {
+    public ResponseEntity<List<DTOPaciente>> findAll() {
         return ResponseEntity.ok(pacienteService.findAll());
     }
 

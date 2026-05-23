@@ -2,6 +2,7 @@ package com.clinica.turnos.controller;
 
 import com.clinica.turnos.model.Paciente;
 import com.clinica.turnos.model.Profesional;
+import com.clinica.turnos.model.Turno;
 import com.clinica.turnos.service.PacienteService;
 import com.clinica.turnos.service.ProfesionalService;
 import com.clinica.turnos.service.TurnoService;
@@ -53,8 +54,27 @@ public class TestCargaInicial implements CommandLineRunner {
         profesionalService.create(profesional2);
 
         // Registrar 3 turnos
-        turnoService.register(1L, 1L, LocalDate.of(2026, 6, 10));
-        turnoService.register(2L, 2L, LocalDate.of(2026, 6, 11));
-        turnoService.register(1L, 2L, LocalDate.of(2026, 6, 12));
+        Paciente p1 = pacienteService.findEntityById(1L);
+        Paciente p2 = pacienteService.findEntityById(2L);
+        Profesional prof1 = profesionalService.findEntityById(1L);
+        Profesional prof2 = profesionalService.findEntityById(2L);
+
+        Turno turno1 = new Turno();
+        turno1.setPaciente(p1);
+        turno1.setProfesional(prof1);
+        turno1.setDate(LocalDate.of(2026, 6, 10));
+        turnoService.register(turno1);
+
+        Turno turno2 = new Turno();
+        turno2.setPaciente(p2);
+        turno2.setProfesional(prof2);
+        turno2.setDate(LocalDate.of(2026, 6, 11));
+        turnoService.register(turno2);
+
+        Turno turno3 = new Turno();
+        turno3.setPaciente(p1);
+        turno3.setProfesional(prof2);
+        turno3.setDate(LocalDate.of(2026, 6, 12));
+        turnoService.register(turno3);
     }
 }

@@ -5,11 +5,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Setter
+import java.time.LocalDate;
+
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DTOProfesional {
-    private String completeName;
-    private String speciality;
+public class TurnoResponseDTO {
+    private Long id;
+    private DTOPaciente paciente;
+    private DTOProfesional profesional;
+    private LocalDate date;
 }

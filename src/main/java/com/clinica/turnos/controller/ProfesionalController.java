@@ -1,5 +1,6 @@
 package com.clinica.turnos.controller;
 
+import com.clinica.turnos.dto.DTOProfesional;
 import com.clinica.turnos.model.Profesional;
 import com.clinica.turnos.service.ProfesionalService;
 import jakarta.validation.Valid;
@@ -18,12 +19,12 @@ public class ProfesionalController {
     private ProfesionalService profesionalService;
 
     @PostMapping
-    public ResponseEntity<Profesional> create(@Valid @RequestBody Profesional profesional) {
+    public ResponseEntity<DTOProfesional> create(@Valid @RequestBody Profesional profesional) {
         return ResponseEntity.status(HttpStatus.CREATED).body(profesionalService.create(profesional));
     }
 
     @GetMapping
-    public ResponseEntity<List<Profesional>> findByEspecialidad(@RequestParam String speciality) {
-        return ResponseEntity.ok(profesionalService.findBySpeciality(speciality));
+    public ResponseEntity<List<DTOProfesional>> findBySpecialty(@RequestParam String specialty) {
+        return ResponseEntity.ok(profesionalService.findBySpecialty(specialty));
     }
 }

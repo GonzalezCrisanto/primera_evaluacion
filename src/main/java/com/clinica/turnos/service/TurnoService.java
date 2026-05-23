@@ -1,5 +1,8 @@
 package com.clinica.turnos.service;
 
+import com.clinica.turnos.dto.DTOPaciente;
+import com.clinica.turnos.dto.DTOProfesional;
+import com.clinica.turnos.dto.TurnoResponseDTO;
 import com.clinica.turnos.exception.DatoInvalidoException;
 import com.clinica.turnos.exception.RecursoNoEncontradoException;
 import com.clinica.turnos.model.Paciente;
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TurnoService {
@@ -24,28 +28,43 @@ public class TurnoService {
     @Autowired
     private ProfesionalService profesionalService;
 
-    public Turno register(Long pacienteId, Long profesionalId, LocalDate fecha) {
-        Paciente paciente = pacienteService.findById(pacienteId);
-        Profesional profesional = profesionalService.findById(profesionalId);
+    private TurnoResponseDTO toDTO(Turno turno) {
+        DTOPaciente dtoPaciente = new DTOPaciente(
+                turno.getPaciente().getName(),
+                turno.getPaciente().getLastName()
+        );
+        DTOProfesional dtoProfesional = new DTOProfesional(
+                turno.getProfesional().getCompleteName(),
+                turno.getProfesional().getSpecialty()
+        );
+        return new TurnoResponseDTO(turno.getId(), dtoPaciente, dtoProfesional, turno.getDate());
+    }
 
-        if (turnoRepository.DuplicateExist(pacienteId, profesionalId, fecha)) {
+    public TurnoResponseDTO register(Turno turno) {
+        Paciente paciente = pacienteService.findEntityById(turno.getPaciente().getId());
+        Profesional profesional = profesionalService.findEntityById(turno.getProfesional().getId());
+
+        if (turnoRepository.DuplicateExist(paciente.getId(), profesional.getId(), turno.getDate())) {
             throw new DatoInvalidoException("An appointment already exists for that patient, professional and date");
         }
 
-        Turno turno = new Turno();
         turno.setPaciente(paciente);
         turno.setProfesional(profesional);
-        turno.setDate(fecha);
-
-        return turnoRepository.save(turno);
+        return toDTO(turnoRepository.save(turno));
     }
 
-    public List<Turno> findAll() {
-        return turnoRepository.findAll();
+    public List<TurnoResponseDTO> findAll() {
+        return turnoRepository.findAll()
+                .stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
     }
 
-    public List<Turno> findByFecha(LocalDate fecha) {
-        return turnoRepository.findByDate(fecha);
+    public List<TurnoResponseDTO> findByDate(LocalDate date) {
+        return turnoRepository.findByDate(date)
+                .stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
     }
 
     public void delete(Long id) {

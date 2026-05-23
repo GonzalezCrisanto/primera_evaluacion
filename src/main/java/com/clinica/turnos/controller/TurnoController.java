@@ -1,5 +1,6 @@
 package com.clinica.turnos.controller;
 
+import com.clinica.turnos.dto.TurnoResponseDTO;
 import com.clinica.turnos.model.Turno;
 import com.clinica.turnos.service.TurnoService;
 import jakarta.validation.Valid;
@@ -20,22 +21,19 @@ public class TurnoController {
     private TurnoService turnoService;
 
     @PostMapping
-    public ResponseEntity<Turno> register(@Valid @RequestBody Turno turno) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(turnoService.register(turno.getPaciente().getId(),
-                        turno.getProfesional().getId(),
-                        turno.getDate()));
+    public ResponseEntity<TurnoResponseDTO> register(@Valid @RequestBody Turno turno) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(turnoService.register(turno));
     }
 
     @GetMapping
-    public ResponseEntity<List<Turno>> findAll() {
+    public ResponseEntity<List<TurnoResponseDTO>> findAll() {
         return ResponseEntity.ok(turnoService.findAll());
     }
 
-    @GetMapping("/fecha/{fecha}")
-    public ResponseEntity<List<Turno>> findByFecha(
+    @GetMapping("/fecha/{date}")
+    public ResponseEntity<List<TurnoResponseDTO>> findByDate(
             @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-        return ResponseEntity.ok(turnoService.findByFecha(date));
+        return ResponseEntity.ok(turnoService.findByDate(date));
     }
 
     @DeleteMapping("/{id}")
