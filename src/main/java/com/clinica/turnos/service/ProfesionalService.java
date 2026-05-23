@@ -13,6 +13,10 @@ import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Service responsible for handling business logic related to medical professionals.
+ * Delegates persistence operations to {@link ProfesionalRepository}.
+ */
 @Service
 public class ProfesionalService {
     @Autowired
@@ -20,11 +24,25 @@ public class ProfesionalService {
 
     private static final Logger logger = LogManager.getLogger(ProfesionalService.class);
 
+    /**
+     * Creates a new professional and returns a DTO with their basic information.
+     *
+     * @param profesional the professional to create
+     * @return a {@link DTOProfesional} with the created professional's data
+     */
     public DTOProfesional create(Profesional profesional) {
         logger.info("Creating professional: {}", profesional.getCompleteName());
         return toDTO(profesionalRepository.save(profesional));
     }
 
+    /**
+     * Retrieves the full {@link Profesional} entity by ID.
+     * Used internally by {@link TurnoService} to build appointments.
+     * Throws {@link RecursoNoEncontradoException} if the professional does not exist.
+     *
+     * @param id the professional's ID
+     * @return the full {@link Profesional} entity
+     */
     public Profesional findEntityById(Long id) {
         logger.info("Searching professional with id: {}", id);
         Profesional profesional = profesionalRepository.findById(id);
@@ -35,6 +53,12 @@ public class ProfesionalService {
         return profesional;
     }
 
+    /**
+     * Retrieves all professionals filtered by specialty.
+     *
+     * @param specialty the medical specialty to filter by
+     * @return list of {@link DTOProfesional} matching the specialty
+     */
     public List<DTOProfesional> findBySpecialty(String specialty) {
         logger.info("Listing professionals with specialty: {}", specialty);
         return profesionalRepository.findBySpeciality(specialty)
@@ -43,6 +67,12 @@ public class ProfesionalService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Converts a {@link Profesional} entity to a {@link DTOProfesional}.
+     *
+     * @param profesional the professional entity
+     * @return a {@link DTOProfesional}
+     */
     private DTOProfesional toDTO(Profesional profesional) {
         return new DTOProfesional(profesional.getCompleteName(), profesional.getSpecialty());
     }
