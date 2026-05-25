@@ -4,7 +4,6 @@ import com.clinica.turnos.dto.DTOPaciente;
 import com.clinica.turnos.exception.RecursoNoEncontradoException;
 import com.clinica.turnos.model.Paciente;
 import com.clinica.turnos.repository.IPacienteRepository;
-import com.clinica.turnos.repository.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * Service responsible for handling business logic related to patients.
- * Delegates persistence operations to {@link PacienteRepository}.
+ * Delegates persistence operations to {@link IPacienteRepository}.
  */
 @Service
 public class PacienteService {

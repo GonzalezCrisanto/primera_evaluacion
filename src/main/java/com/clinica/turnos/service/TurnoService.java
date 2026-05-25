@@ -23,6 +23,7 @@ import org.apache.logging.log4j.Logger;
  * Service responsible for handling business logic related to medical appointments.
  * Validates patient and professional existence before registering an appointment.
  * Prevents duplicate appointments for the same patient, professional and date.
+ * Delegates persistence operations to {@link ITurnoRepository}.
  */
 @Service
 public class TurnoService {

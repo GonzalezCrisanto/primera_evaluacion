@@ -4,7 +4,6 @@ import com.clinica.turnos.dto.DTOProfesional;
 import com.clinica.turnos.exception.RecursoNoEncontradoException;
 import com.clinica.turnos.model.Profesional;
 import com.clinica.turnos.repository.IProfesionalRepository;
-import com.clinica.turnos.repository.ProfesionalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * Service responsible for handling business logic related to medical professionals.
- * Delegates persistence operations to {@link ProfesionalRepository}.
+ * Delegates persistence operations to {@link IProfesionalRepository}.
  */
 @Service
 public class ProfesionalService {
