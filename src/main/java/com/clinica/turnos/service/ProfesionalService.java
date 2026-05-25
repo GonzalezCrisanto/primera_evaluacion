@@ -3,6 +3,7 @@ package com.clinica.turnos.service;
 import com.clinica.turnos.dto.DTOProfesional;
 import com.clinica.turnos.exception.RecursoNoEncontradoException;
 import com.clinica.turnos.model.Profesional;
+import com.clinica.turnos.repository.IProfesionalRepository;
 import com.clinica.turnos.repository.ProfesionalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,9 @@ import org.apache.logging.log4j.Logger;
  */
 @Service
 public class ProfesionalService {
+
     @Autowired
-    private ProfesionalRepository profesionalRepository;
+    private IProfesionalRepository profesionalRepository;
 
     private static final Logger logger = LogManager.getLogger(ProfesionalService.class);
 

@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Repository
-public class TurnoRepository {
+public class TurnoRepository implements ITurnoRepository{
 
     private Map<Long, Turno> storage = new HashMap<>();
     private Long idCounter = 1L;

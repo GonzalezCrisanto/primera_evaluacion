@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Repository
-public class ProfesionalRepository {
+public class ProfesionalRepository implements IProfesionalRepository{
 
     private Map<Long, Profesional> storage = new HashMap<>();
     private Long idCounter = 1L;

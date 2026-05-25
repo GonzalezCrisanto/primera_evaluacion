@@ -8,7 +8,7 @@ import com.clinica.turnos.exception.RecursoNoEncontradoException;
 import com.clinica.turnos.model.Paciente;
 import com.clinica.turnos.model.Profesional;
 import com.clinica.turnos.model.Turno;
-import com.clinica.turnos.repository.TurnoRepository;
+import com.clinica.turnos.repository.ITurnoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +28,7 @@ import org.apache.logging.log4j.Logger;
 public class TurnoService {
 
     @Autowired
-    private TurnoRepository turnoRepository;
+    private ITurnoRepository turnoRepository;
 
     @Autowired
     private PacienteService pacienteService;

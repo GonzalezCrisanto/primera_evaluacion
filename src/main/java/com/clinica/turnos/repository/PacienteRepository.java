@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class PacienteRepository {
+public class PacienteRepository implements IPacienteRepository {
 
     private Map<Long, Paciente> storage = new HashMap<>();
     private Long idCounter = 1L;
