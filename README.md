@@ -16,32 +16,37 @@ API REST desarrollada con Spring Boot para gestionar turnos médicos, pacientes 
 
 ## Estructura del proyecto
 
+```
 src/main/java/com/clinica/turnos/
-├── controller/         # Controladores REST
+├── controller/               # Controladores REST
 │   ├── PacienteController.java
 │   ├── ProfesionalController.java
 │   ├── TurnoController.java
 │   └── TestCargaInicial.java
-├── service/            # Lógica de negocio
+├── service/                  # Lógica de negocio
 │   ├── PacienteService.java
 │   ├── ProfesionalService.java
 │   └── TurnoService.java
-├── repository/         # Almacenamiento en memoria
+├── repository/               # Almacenamiento en memoria
+│   ├── IPacienteRepository.java
+│   ├── IProfesionalRepository.java
+│   ├── ITurnoRepository.java
 │   ├── PacienteRepository.java
 │   ├── ProfesionalRepository.java
 │   └── TurnoRepository.java
-├── model/              # Entidades
+├── model/                    # Entidades
 │   ├── Paciente.java
 │   ├── Profesional.java
 │   └── Turno.java
-├── dto/                # Data Transfer Objects
+├── dto/                      # Data Transfer Objects
 │   ├── DTOPaciente.java
 │   ├── DTOProfesional.java
 │   └── TurnoResponseDTO.java
-└── exception/          # Manejo de excepciones
+└── exception/                # Manejo de excepciones
     ├── RecursoNoEncontradoException.java
     ├── DatoInvalidoException.java
     └── GlobalExceptionHandler.java
+```
 
 ## Cómo correr la aplicación
 
